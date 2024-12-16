@@ -4,12 +4,16 @@ import 'package:flutter_4/models/game.dart';
 class GamePage extends StatelessWidget {
   final Game game;
   final bool liked;
+  final int quantityInCart;
+  final dynamic Function() addToCart;
   final dynamic Function() onFavoriteToggle;
   const GamePage(
       {super.key,
       required this.game,
       required this.liked,
-      required this.onFavoriteToggle});
+      required this.onFavoriteToggle,
+      required this.addToCart,
+      required this.quantityInCart});
 
   @override
   Widget build(BuildContext context) {
@@ -73,23 +77,41 @@ class GamePage extends StatelessWidget {
           ),
           Align(
             alignment: Alignment.bottomCenter,
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width,
-              child: FloatingActionButton.extended(
-                backgroundColor: Colors.blueGrey,
-                onPressed: () => {},
-                icon: const Icon(
-                  Icons.shopping_cart,
-                  size: 24,
-                  color: Colors.white,
-                ),
-                label: Text(
-                  game.price,
-                  style: const TextStyle(color: Colors.white),
-                ),
-                shape: const RoundedRectangleBorder(),
-              ),
-            ),
+            child: quantityInCart > 0
+                ? SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: FloatingActionButton.extended(
+                      backgroundColor: Colors.blueGrey,
+                      onPressed: () {
+                        Navigator.pop(context, 2);
+                      },
+                      label: Text(
+                        'В корзине ${quantityInCart}',
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                      shape: const RoundedRectangleBorder(),
+                    ),
+                  )
+                : SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: FloatingActionButton.extended(
+                      backgroundColor: Colors.blueGrey,
+                      onPressed: () {
+                        addToCart();
+                        Navigator.pop(context, 2);
+                      },
+                      icon: const Icon(
+                        Icons.shopping_cart,
+                        size: 24,
+                        color: Colors.white,
+                      ),
+                      label: Text(
+                        'Купить сейчас за ${game.price} руб.',
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                      shape: const RoundedRectangleBorder(),
+                    ),
+                  ),
           )
         ]));
   }

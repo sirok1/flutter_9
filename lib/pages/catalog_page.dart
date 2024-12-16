@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_4/components/game_item.dart';
+import 'package:flutter_4/models/cart_item.dart';
 import 'package:flutter_4/models/game.dart';
 
 final List<Game> games = [
@@ -18,21 +19,21 @@ ELDEN RING — ролевая игра в жанре фэнтези от FromSof
 
 Ибо оно ждёт нового повелителя''',
     "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.ytimg.com%2Fvi%2FE3Huy2cdih0%2Fmaxresdefault.jpg&f=1&nofb=1&ipt=8c93c275775a5bdd9a93c346d13054bddb4f5c24b20f51eedd3198dce5ad440e&ipo=images",
-    "2519 руб.",
+    2519,
   ),
   Game(
     "1727108578",
     "Persona 5 Royal",
     '''Главный герой — старшеклассник, который был вынужден переехать в Токио и перевестись в одну из городских школ. Вскоре после этого он видит странный сон: таинственный голос называет его узником судьбы и сообщает, что в недалеком будущем юношу ожидает катастрофа. Теперь, чтобы пройти некий курс «реабилитации», он должен спасать людей от их собственных порочных желаний, примерив маску Призрачного похитителя.''',
     "https://avatars.mds.yandex.net/i?id=5f9cf592c011c5ffb388935e31cd5ef2_l-7973815-images-thumbs&n=13",
-    "2238 руб.",
+    2238,
   ),
   Game(
       "1727127024",
       "Black Myth: Wukong",
       "Black Myth: Wukong — ролевой боевик по мотивам китайской мифологии. Его сюжет основывается на «Путешествии на Запад», одном из четырёх классических романов китайской литературы. Став Избранным, вы отправитесь в приключение, полное испытаний и чудес, в котором вам предстоит приподнять завесу тайны над великой легендой.",
       "https://digiseller.mycdn.ink/preview/1115001/p1_4384167_9f03e94f.jpg",
-      "4441 руб."),
+      4441),
   Game(
       "1727127095",
       "Baldur's Gate 3",
@@ -42,7 +43,7 @@ ELDEN RING — ролевая игра в жанре фэнтези от FromSof
 
 Ролевая игра нового поколения в мире Dungeons & Dragons от создателей Divinity: Original Sin 2.''',
       "https://korobok.store/upload/iblock/d67/na9245kxy88ke4ley3ce4em14915p4tp.webp",
-      "2469 руб."),
+      2469),
   Game(
       "1727127227",
       "NieR:Automata",
@@ -50,7 +51,7 @@ ELDEN RING — ролевая игра в жанре фэнтези от FromSof
 
 Humanity has been driven from the Earth by mechanical beings from another world. In a final effort to take back the planet, the human resistance sends a force of android soldiers to destroy the invaders. Now, a war between machines and androids rages on... A war that could soon unveil a long-forgotten truth of the world.''',
       "https://avatars.mds.yandex.net/i?id=e542066fc8cfc06acaab48c77cf1e4c6_l-7013372-images-thumbs&n=13",
-      "1007 руб."),
+      1007),
   Game(
       "1727127293",
       "NieR Replicant",
@@ -59,7 +60,7 @@ Humanity has been driven from the Earth by mechanical beings from another world.
 
 Главный герой – добросердечный юноша из глухой деревеньки. Его сестру Йону поразил смертельный недуг, именуемый «черными буквами», и ради нее он вместе с Белым Гримуаром – причудливой говорящей книгой – отправляется на поиски «запечатанных виршей».''',
       "https://cdn11.bigcommerce.com/s-6kgfzq4siu/images/stencil/1280x1280/products/2271/11135/7bafc5e1b3a974e6765995d44c5ed564__25125.1675955718.jpg?c=1",
-      "1646 руб."),
+      1646),
   Game(
       "1727127365",
       "HELLDIVERS™ 2",
@@ -74,7 +75,7 @@ Humanity has been driven from the Earth by mechanical beings from another world.
 Вступите в величайшую армию в истории и сделайте галактику безопасной и свободной.
 ''',
       "https://wholesgame.com/wp-content/uploads/Helldivers-2-Thumb-4-x-5.jpg",
-      "3530 руб."),
+      3530),
   Game(
       "1727127432",
       "Persona 3 Reload",
@@ -82,7 +83,7 @@ Humanity has been driven from the Earth by mechanical beings from another world.
 
 Persona 3 Reload — захватывающее современное переосмысление культовой ролевой игры.''',
       "https://app-time.ru/uploads/games/keyart/2023/12/27122023150938.webp",
-      "2569 руб."),
+      2569),
   Game(
       "1727127502",
       "Cult of the Lamb",
@@ -90,21 +91,29 @@ Persona 3 Reload — захватывающее современное пере�
 СОБЕРИТЕ СВОЮ ПАСТВУ
 Собирайте ресурсы и используйте их для возведения построек, проводите темные ритуалы, чтобы задобрить богов, и укрепляйте веру своей паствы с помощью проповедей.''',
       "https://images.wallpapersden.com/image/download/cult-of-the-lamb-hd-gaming_bWhpa2iUmZqaraWkpJRmamhrrWdlaW0.jpg",
-      "863 руб."),
+      863),
   Game(
       "1727127563",
       "Cyberpunk 2077",
       '''Cyberpunk 2077 — приключенческая ролевая игра с открытым миром, рассказывающая о киберпанке-наёмнике Ви и борьбе за жизнь в мегаполисе Найт-Сити. Мрачное будущее стало ещё более впечатляющим в улучшенной версии, в которую вошли новые дополнительные материалы. Создайте персонажа, выберите стиль игры и начните свой путь к высшей лиге, выполняя заказы, улучшая репутацию и оттачивая навыки. Ваши поступки влияют на происходящее и на весь город. В нём рождаются легенды. Какую сложат о вас?''',
       "https://shop.buka.ru/data/img_files/8975/screenshot/XhKcDnPNBf.jpg",
-      "1513 руб.")
+      1513)
 ];
 
 class CatalogPage extends StatefulWidget {
   final Function(Game) onFavoriteToggle;
   final List<Game> favoriteGames;
+  final List<CartItem> cart;
+  final Function(Game) addToCart;
+  final Function(Game) removeFromCart;
 
   const CatalogPage(
-      {super.key, required this.onFavoriteToggle, required this.favoriteGames});
+      {super.key,
+      required this.onFavoriteToggle,
+      required this.favoriteGames,
+      required this.cart,
+      required this.addToCart,
+      required this.removeFromCart});
 
   @override
   _CatalogPageState createState() => _CatalogPageState();
@@ -163,7 +172,7 @@ class _CatalogPageState extends State<CatalogPage> {
                   titleController.text,
                   descriptionController.text,
                   imageUrlController.text,
-                  priceController.text,
+                  int.parse(priceController.text),
                 );
 
                 setState(() {
@@ -178,6 +187,12 @@ class _CatalogPageState extends State<CatalogPage> {
         );
       },
     );
+  }
+
+  void _removeFromGames(Game game) {
+    setState(() {
+      games.remove(game);
+    });
   }
 
   @override
@@ -200,11 +215,65 @@ class _CatalogPageState extends State<CatalogPage> {
                     mainAxisSpacing: 20),
                 itemCount: games.length,
                 itemBuilder: (BuildContext ctx, index) {
-                  return GameItem(
-                      game: games[index],
-                      liked: widget.favoriteGames.contains(games[index]),
-                      onFavoriteToggle: () =>
-                          widget.onFavoriteToggle(games[index]));
+                  return Dismissible(
+                      key: Key(games[index].id),
+                      direction: DismissDirection.endToStart,
+                      background: Container(
+                        color: Colors.red,
+                        alignment: Alignment.centerRight,
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: const Icon(
+                          Icons.delete,
+                          color: Colors.white,
+                        ),
+                      ),
+                      confirmDismiss: (direction) async {
+                        return await showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: const Text('Подтверждение удаления'),
+                            content: const Text(
+                                'Вы уверены, что хотите удалить этот элемент из каталога?'),
+                            actions: [
+                              TextButton(
+                                onPressed: () =>
+                                    Navigator.of(context).pop(false),
+                                child: const Text('Отмена'),
+                              ),
+                              TextButton(
+                                onPressed: () =>
+                                    Navigator.of(context).pop(true),
+                                child: const Text('Удалить'),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                      onDismissed: (direction) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content:
+                                Text("${games[index].name} удален из каталога"),
+                          ),
+                        );
+                        _removeFromGames(games[index]);
+                      },
+                      child: GameItem(
+                        game: games[index],
+                        liked: widget.favoriteGames.contains(games[index]),
+                        onFavoriteToggle: () =>
+                            widget.onFavoriteToggle(games[index]),
+                        quantityInCart: widget.cart
+                            .firstWhere(
+                              (position) => position.id == games[index].id,
+                              orElse: () =>
+                                  CartItem(games[index].id, 0, games[index]),
+                            )
+                            .quantity,
+                        addToCart: () => widget.addToCart(games[index]),
+                        removeFromCart: () =>
+                            widget.removeFromCart(games[index]),
+                      ));
                 })),
         floatingActionButton: Stack(children: [
           Positioned(

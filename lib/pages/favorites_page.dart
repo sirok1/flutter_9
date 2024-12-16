@@ -1,13 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_4/components/game_item.dart';
+import 'package:flutter_4/models/cart_item.dart';
 import 'package:flutter_4/models/game.dart';
 
 class FavoritesPage extends StatefulWidget {
   final Function(Game) onFavoriteToggle;
   final List<Game> favoriteGames;
+  final List<CartItem> cart;
+  final Function(Game) addToCart;
+  final Function(Game) removeFromCart;
 
   const FavoritesPage(
-      {super.key, required this.onFavoriteToggle, required this.favoriteGames});
+      {super.key,
+      required this.onFavoriteToggle,
+      required this.favoriteGames,
+      required this.addToCart,
+      required this.cart,
+      required this.removeFromCart});
 
   @override
   _FavoritesPageState createState() => _FavoritesPageState();
@@ -60,7 +69,21 @@ class _FavoritesPageState extends State<FavoritesPage> {
                         liked: widget.favoriteGames
                             .contains(widget.favoriteGames[index]),
                         onFavoriteToggle: () => widget
-                            .onFavoriteToggle(widget.favoriteGames[index]));
+                            .onFavoriteToggle(widget.favoriteGames[index]),
+                        quantityInCart: widget.cart
+                            .firstWhere(
+                              (position) =>
+                                  position.id == widget.favoriteGames[index].id,
+                              orElse: () => CartItem(
+                                  widget.favoriteGames[index].id,
+                                  0,
+                                  widget.favoriteGames[index]),
+                            )
+                            .quantity,
+                        addToCart: () =>
+                            widget.addToCart(widget.favoriteGames[index]),
+                        removeFromCart: () =>
+                            widget.removeFromCart(widget.favoriteGames[index]));
                   })),
     );
   }

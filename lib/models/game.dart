@@ -3,7 +3,7 @@ class Game {
   final String name;
   final String description;
   final String imageUrl;
-  final String price;
+  final int price;
   // final List<String> tags;
 
   Game(this.id, this.name, this.description, this.imageUrl, this.price);

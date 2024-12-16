@@ -7,4 +7,14 @@ class Game {
   // final List<String> tags;
 
   Game(this.id, this.name, this.description, this.imageUrl, this.price);
+
+  factory Game.fromJson(Map<String, dynamic> json) {
+    return Game(
+      json['ID'],
+      json['Name'],
+      json['Description'],
+      json['ImageURL'],
+      json['Price'],
+    );
+  }
 }

@@ -99,14 +99,18 @@ Persona 3 Reload — захватывающее современное пере�
       "1513 руб.")
 ];
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class CatalogPage extends StatefulWidget {
+  final Function(Game) onFavoriteToggle;
+  final List<Game> favoriteGames;
+
+  const CatalogPage(
+      {super.key, required this.onFavoriteToggle, required this.favoriteGames});
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _CatalogPageState createState() => _CatalogPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _CatalogPageState extends State<CatalogPage> {
   void _showAddGameDialog() {
     final TextEditingController idController = TextEditingController();
     final TextEditingController titleController = TextEditingController();
@@ -120,7 +124,7 @@ class _HomePageState extends State<HomePage> {
         return AlertDialog(
           title: const Text('Добавить новую игру'),
           content: SingleChildScrollView(
-            child: Column(
+              child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               TextField(
@@ -196,7 +200,11 @@ class _HomePageState extends State<HomePage> {
                     mainAxisSpacing: 20),
                 itemCount: games.length,
                 itemBuilder: (BuildContext ctx, index) {
-                  return GameItem(game: games[index]);
+                  return GameItem(
+                      game: games[index],
+                      liked: widget.favoriteGames.contains(games[index]),
+                      onFavoriteToggle: () =>
+                          widget.onFavoriteToggle(games[index]));
                 })),
         floatingActionButton: Stack(children: [
           Positioned(

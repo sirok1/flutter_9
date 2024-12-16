@@ -2,14 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_4/models/game.dart';
 
 class GamePage extends StatelessWidget {
-  const GamePage({super.key, required this.game});
   final Game game;
+  final bool liked;
+  final dynamic Function() onFavoriteToggle;
+  const GamePage(
+      {super.key,
+      required this.game,
+      required this.liked,
+      required this.onFavoriteToggle});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: Text(game.name),
+          actions: [
+            IconButton(
+              onPressed: () => onFavoriteToggle(),
+              icon: liked
+                  ? const Icon(Icons.favorite, color: Colors.red)
+                  : const Icon(Icons.favorite_border, color: Colors.black),
+            )
+          ],
         ),
         body: Stack(children: [
           SingleChildScrollView(

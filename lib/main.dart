@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_4/pages/home_page.dart';
+import 'package:flutter_4/page_wrapper.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,10 +14,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueGrey),
         useMaterial3: true,
       ),
-      home: HomePage(),
+      home: PageWrapper(),
     );
   }
 }

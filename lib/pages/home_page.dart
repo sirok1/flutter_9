@@ -99,8 +99,83 @@ Persona 3 Reload — захватывающее современное пере�
       "1513 руб.")
 ];
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  void _showAddGameDialog() {
+    final TextEditingController idController = TextEditingController();
+    final TextEditingController titleController = TextEditingController();
+    final TextEditingController descriptionController = TextEditingController();
+    final TextEditingController imageUrlController = TextEditingController();
+    final TextEditingController priceController = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Добавить новую игру'),
+          content: SingleChildScrollView(
+            child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: idController,
+                decoration: const InputDecoration(labelText: 'Артикул'),
+              ),
+              TextField(
+                controller: titleController,
+                decoration: const InputDecoration(labelText: 'Название'),
+              ),
+              TextField(
+                controller: descriptionController,
+                decoration: const InputDecoration(labelText: 'Описание'),
+              ),
+              TextField(
+                controller: imageUrlController,
+                decoration: const InputDecoration(labelText: 'URL изображения'),
+              ),
+              TextField(
+                controller: priceController,
+                decoration: const InputDecoration(labelText: 'Цена'),
+              ),
+            ],
+          )),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Отмена'),
+            ),
+            TextButton(
+              onPressed: () {
+                final newGame = Game(
+                  idController.text,
+                  titleController.text,
+                  descriptionController.text,
+                  imageUrlController.text,
+                  priceController.text,
+                );
+
+                setState(() {
+                  games.add(newGame);
+                });
+
+                Navigator.of(context).pop();
+              },
+              child: const Text('Сохранить'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -123,17 +198,19 @@ class HomePage extends StatelessWidget {
                 itemBuilder: (BuildContext ctx, index) {
                   return GameItem(game: games[index]);
                 })),
-        floatingActionButton: Transform.translate(
-            offset: const Offset(0, -60),
-            child: SizedBox(
-                height: 70,
-                width: 70,
-                child: FloatingActionButton(
-                  onPressed: () {},
-                  backgroundColor: Colors.blueGrey,
-                  foregroundColor: Colors.white,
-                  enableFeedback: true,
-                  child: const Icon(Icons.add),
-                ))));
+        floatingActionButton: Stack(children: [
+          Positioned(
+              bottom: 40,
+              right: 0,
+              child: SizedBox(
+                  height: 70,
+                  width: 70,
+                  child: FloatingActionButton(
+                      onPressed: () => _showAddGameDialog(),
+                      backgroundColor: Colors.blueGrey,
+                      foregroundColor: Colors.white,
+                      enableFeedback: true,
+                      child: const Icon(Icons.add))))
+        ]));
   }
 }

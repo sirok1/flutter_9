@@ -3,7 +3,7 @@ import 'package:flutter_4/models/game.dart';
 
 class ApiService {
   final Dio _dio = Dio();
-  final String baseurl = "https://10.192.218.219:8080";
+  final String baseurl = "http://10.192.213.60:8080";
 
   Future<List<Game>> getProducts() async {
     try {

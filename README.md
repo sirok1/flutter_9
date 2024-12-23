@@ -2,10 +2,6 @@
 
 ЭФБО-05-22
 
-![image](https://github.com/user-attachments/assets/84bb9dcf-c58e-4499-9c19-f63c69328d63)
+https://s3.timeweb.cloud/e88d4df5-pivo-cloud/video_2024-12-23_16-26-39.mp4
 
-![image](https://github.com/user-attachments/assets/c53cd31d-39b5-41e4-bc81-50f620a15002)
-
-
-
-
+![image](https://github.com/user-attachments/assets/c96cecb8-1e98-4c07-a292-579d1755ee45)

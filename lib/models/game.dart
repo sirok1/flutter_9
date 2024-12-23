@@ -27,4 +27,20 @@ class Game {
       'Price': price
     };
   }
+
+  Game copyWith({
+    String? id,
+    String? name,
+    String? description,
+    String? imageUrl,
+    int? price,
+  }) {
+    return Game(
+      id ?? this.id,
+      name ?? this.name,
+      description ?? this.description,
+      imageUrl ?? this.imageUrl,
+      price ?? this.price,
+    );
+  }
 }

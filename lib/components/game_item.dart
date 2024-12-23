@@ -27,7 +27,7 @@ class GameItem extends StatelessWidget {
             context,
             MaterialPageRoute(
                 builder: (ctx) => GamePage(
-                      game: game,
+                      initialGame: game,
                       liked: liked,
                       onFavoriteToggle: onFavoriteToggle,
                       addToCart: addToCart,

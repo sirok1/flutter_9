@@ -98,7 +98,8 @@ class _CatalogPageState extends State<CatalogPage> {
     );
   }
 
-  void _removeFromGames(Game game) {
+  void _removeFromGames(Game game) async {
+    await ApiService().deleteGame(game);
     setState(() {
       _games = Future.value(_games.then((gameList) {
         gameList.remove(game);
@@ -110,7 +111,18 @@ class _CatalogPageState extends State<CatalogPage> {
   @override
   void initState() {
     super.initState();
-    _games = ApiService().getProducts();
+    _games = _loadGames();
+  }
+
+  Future<List<Game>> _loadGames() async {
+    List<Game> games = await ApiService().getProducts();
+    return games;
+  }
+
+  Future<void> _refreshGames() async {
+    setState(() {
+      _games = _loadGames();
+    });
   }
 
   @override
@@ -123,93 +135,99 @@ class _CatalogPageState extends State<CatalogPage> {
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: FutureBuilder<List<Game>>(
-            future: _games,
-            builder:
-                (BuildContext context, AsyncSnapshot<List<Game>> snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
-              } else if (snapshot.hasError) {
-                return Center(child: Text('Error: ${snapshot.error}'));
-              } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                return const Center(child: Text('Нет игр в каталоге.'));
-              }
+        body: RefreshIndicator(
+            onRefresh: _refreshGames,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: FutureBuilder<List<Game>>(
+                future: _games,
+                builder:
+                    (BuildContext context, AsyncSnapshot<List<Game>> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Center(child: Text('Error: ${snapshot.error}'));
+                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                    return const Center(child: Text('Нет игр в каталоге.'));
+                  }
 
-              final games = snapshot.data!;
+                  final games = snapshot.data!;
 
-              return GridView.builder(
-                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 200,
-                  childAspectRatio: 6 / 12,
-                  crossAxisSpacing: 20,
-                  mainAxisSpacing: 20,
-                ),
-                itemCount: games.length,
-                itemBuilder: (BuildContext ctx, index) {
-                  return Dismissible(
-                    key: Key(games[index].id),
-                    direction: DismissDirection.endToStart,
-                    background: Container(
-                      color: Colors.red,
-                      alignment: Alignment.centerRight,
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: const Icon(
-                        Icons.delete,
-                        color: Colors.white,
-                      ),
+                  return GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent: 200,
+                      childAspectRatio: 6 / 12,
+                      crossAxisSpacing: 20,
+                      mainAxisSpacing: 20,
                     ),
-                    confirmDismiss: (direction) async {
-                      return await showDialog(
-                        context: context,
-                        builder: (context) => AlertDialog(
-                          title: const Text('Подтверждение удаления'),
-                          content: const Text(
-                              'Вы уверены, что хотите удалить этот элемент из каталога?'),
-                          actions: [
-                            TextButton(
-                              onPressed: () => Navigator.of(context).pop(false),
-                              child: const Text('Отмена'),
+                    itemCount: games.length,
+                    itemBuilder: (BuildContext ctx, index) {
+                      return Dismissible(
+                        key: Key(games[index].id),
+                        direction: DismissDirection.endToStart,
+                        background: Container(
+                          color: Colors.red,
+                          alignment: Alignment.centerRight,
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: const Icon(
+                            Icons.delete,
+                            color: Colors.white,
+                          ),
+                        ),
+                        confirmDismiss: (direction) async {
+                          return await showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: const Text('Подтверждение удаления'),
+                              content: const Text(
+                                  'Вы уверены, что хотите удалить этот элемент из каталога?'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () =>
+                                      Navigator.of(context).pop(false),
+                                  child: const Text('Отмена'),
+                                ),
+                                TextButton(
+                                  onPressed: () =>
+                                      Navigator.of(context).pop(true),
+                                  child: const Text('Удалить'),
+                                ),
+                              ],
                             ),
-                            TextButton(
-                              onPressed: () => Navigator.of(context).pop(true),
-                              child: const Text('Удалить'),
+                          );
+                        },
+                        onDismissed: (direction) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                  "${games[index].name} удален из каталога"),
                             ),
-                          ],
+                          );
+                          _removeFromGames(games[index]);
+                        },
+                        child: GameItem(
+                          game: games[index],
+                          liked: widget.favoriteGames.contains(games[index]),
+                          onFavoriteToggle: () =>
+                              widget.onFavoriteToggle(games[index]),
+                          quantityInCart: widget.cart
+                              .firstWhere(
+                                (position) => position.id == games[index].id,
+                                orElse: () =>
+                                    CartItem(games[index].id, 0, games[index]),
+                              )
+                              .quantity,
+                          addToCart: () => widget.addToCart(games[index]),
+                          removeFromCart: () =>
+                              widget.removeFromCart(games[index]),
                         ),
                       );
                     },
-                    onDismissed: (direction) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content:
-                              Text("${games[index].name} удален из каталога"),
-                        ),
-                      );
-                      _removeFromGames(games[index]);
-                    },
-                    child: GameItem(
-                      game: games[index],
-                      liked: widget.favoriteGames.contains(games[index]),
-                      onFavoriteToggle: () =>
-                          widget.onFavoriteToggle(games[index]),
-                      quantityInCart: widget.cart
-                          .firstWhere(
-                            (position) => position.id == games[index].id,
-                            orElse: () =>
-                                CartItem(games[index].id, 0, games[index]),
-                          )
-                          .quantity,
-                      addToCart: () => widget.addToCart(games[index]),
-                      removeFromCart: () => widget.removeFromCart(games[index]),
-                    ),
                   );
                 },
-              );
-            },
-          ),
-        ),
+              ),
+            )),
         floatingActionButton: Stack(
           children: [
             Positioned(

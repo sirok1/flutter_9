@@ -2,6 +2,8 @@
 
 ЭФБО-05-22
 
-https://s3.timeweb.cloud/e88d4df5-pivo-cloud/video_2024-12-23_16-26-39.mp4
+https://github.com/user-attachments/assets/3d90cbcb-f535-4e94-b1ec-5c92ef0fa741
+
+
 
 ![image](https://github.com/user-attachments/assets/c96cecb8-1e98-4c07-a292-579d1755ee45)

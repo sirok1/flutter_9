@@ -21,6 +21,8 @@ class GamePage extends StatelessWidget {
         appBar: AppBar(
           title: Text(game.name),
           actions: [
+            IconButton(onPressed: () => {}, icon: Icon(Icons.edit)),
+            IconButton(onPressed: () => {}, icon: Icon(Icons.delete_forever)),
             IconButton(
               onPressed: () => onFavoriteToggle(),
               icon: liked

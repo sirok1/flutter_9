@@ -17,4 +17,14 @@ class Game {
       json['Price'],
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'ID': id,
+      'Name': name,
+      'Description': description,
+      'ImageURL': imageUrl,
+      'Price': price
+    };
+  }
 }

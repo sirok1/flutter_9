@@ -72,7 +72,7 @@ class _CatalogPageState extends State<CatalogPage> {
               child: const Text('Отмена'),
             ),
             TextButton(
-              onPressed: () {
+              onPressed: () async {
                 final newGame = Game(
                   idController.text,
                   titleController.text,
@@ -81,9 +81,11 @@ class _CatalogPageState extends State<CatalogPage> {
                   int.parse(priceController.text),
                 );
 
+                final gameFromApi = await ApiService().addGame(newGame);
+                final currentGames = await _games;
+
                 setState(() {
-                  // You should add the new game to the games list, but we need to handle it properly.
-                  _games = Future.value([..._games as List<Game>, newGame]);
+                  _games = Future.value([...currentGames, gameFromApi]);
                 });
 
                 Navigator.of(context).pop();
@@ -125,7 +127,8 @@ class _CatalogPageState extends State<CatalogPage> {
           padding: const EdgeInsets.all(8.0),
           child: FutureBuilder<List<Game>>(
             future: _games,
-            builder: (BuildContext context, AsyncSnapshot<List<Game>> snapshot) {
+            builder:
+                (BuildContext context, AsyncSnapshot<List<Game>> snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: CircularProgressIndicator());
               } else if (snapshot.hasError) {
@@ -166,13 +169,11 @@ class _CatalogPageState extends State<CatalogPage> {
                               'Вы уверены, что хотите удалить этот элемент из каталога?'),
                           actions: [
                             TextButton(
-                              onPressed: () =>
-                                  Navigator.of(context).pop(false),
+                              onPressed: () => Navigator.of(context).pop(false),
                               child: const Text('Отмена'),
                             ),
                             TextButton(
-                              onPressed: () =>
-                                  Navigator.of(context).pop(true),
+                              onPressed: () => Navigator.of(context).pop(true),
                               child: const Text('Удалить'),
                             ),
                           ],
@@ -182,8 +183,8 @@ class _CatalogPageState extends State<CatalogPage> {
                     onDismissed: (direction) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          content: Text(
-                              "${games[index].name} удален из каталога"),
+                          content:
+                              Text("${games[index].name} удален из каталога"),
                         ),
                       );
                       _removeFromGames(games[index]);
@@ -201,8 +202,7 @@ class _CatalogPageState extends State<CatalogPage> {
                           )
                           .quantity,
                       addToCart: () => widget.addToCart(games[index]),
-                      removeFromCart: () =>
-                          widget.removeFromCart(games[index]),
+                      removeFromCart: () => widget.removeFromCart(games[index]),
                     ),
                   );
                 },

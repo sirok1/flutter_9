@@ -58,7 +58,6 @@ class _GamePageState extends State<GamePage> {
             },
             icon: Icon(Icons.edit),
           ),
-          IconButton(onPressed: () => {}, icon: Icon(Icons.delete_forever)),
           IconButton(
             onPressed: () => widget.onFavoriteToggle(),
             icon: widget.liked ? Icon(Icons.favorite) : Icon(Icons.favorite_border),
